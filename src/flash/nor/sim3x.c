@@ -845,7 +845,7 @@ static int sim3x_flash_info(struct flash_bank *bank, char *buf, int buf_size)
 	if (ret != ERROR_OK)
 		return ret;
 
-	/* Part */
+	/* Part *
 	if (sim3x_info->part_family && sim3x_info->part_number) {
 		printed = snprintf(buf, buf_size, "SiM3%c%d", sim3x_info->part_family, sim3x_info->part_number);
 		buf += printed;
@@ -854,7 +854,7 @@ static int sim3x_flash_info(struct flash_bank *bank, char *buf, int buf_size)
 		if (buf_size <= 0)
 			return ERROR_BUF_TOO_SMALL;
 
-		/* Revision */
+		* Revision *
 		if (sim3x_info->device_revision && sim3x_info->device_revision <= 'Z' - 'A') {
 			printed = snprintf(buf, buf_size, "-%c", sim3x_info->device_revision + 'A');
 			buf += printed;
@@ -863,7 +863,7 @@ static int sim3x_flash_info(struct flash_bank *bank, char *buf, int buf_size)
 			if (buf_size <= 0)
 				return ERROR_BUF_TOO_SMALL;
 
-			/* Package */
+			* Package *
 			if (sim3x_info->device_package) {
 				printed = snprintf(buf, buf_size, "-G%s", sim3x_info->device_package);
 				buf += printed;
@@ -874,6 +874,37 @@ static int sim3x_flash_info(struct flash_bank *bank, char *buf, int buf_size)
 			}
 		}
 	}
+*/
+
+        /* Part */
+        if (sim3x_info->part_family && sim3x_info->part_number) {
+                printed = snprintf(buf, buf_size, "SiM3%c%d", sim3x_info->part_family, sim3x_info->part_number);
+                buf += printed;
+                buf_size -= printed;
+
+                if (buf_size <= 0)
+                        return ERROR_BUF_TOO_SMALL;
+
+                /* Revision */
+                if (sim3x_info->device_revision && sim3x_info->device_revision <= 'Z' - 'A') {
+                        printed = snprintf(buf, buf_size, "-%c", sim3x_info->device_revision + 'A');
+                        buf += printed;
+                        buf_size -= printed;
+
+                        if (buf_size <= 0)
+                                return ERROR_BUF_TOO_SMALL;
+
+                        /* Package */
+                        printed = snprintf(buf, buf_size, "-G%s", sim3x_info->device_package);
+                        buf += printed;
+                        buf_size -= printed;
+
+                        if (buf_size <= 0)
+                                return ERROR_BUF_TOO_SMALL;
+                }
+        }
+
+
 
 	/* Print flash size */
 	printed = snprintf(buf, buf_size, " flash_size = %dKB", sim3x_info->flash_size_kb);
