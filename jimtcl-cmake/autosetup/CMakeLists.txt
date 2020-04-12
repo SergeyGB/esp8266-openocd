@@ -1,1 +1,0 @@
-add_executable(jimsh0 ../../jimtcl/autosetup/jimsh0.c)
